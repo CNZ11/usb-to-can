@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************
- * @Copyright:  Copyright  (C)  2021-2024 ¶«Ý¸ÊÐ±¾Ä©¿Æ¼¼ÓÐÏÞ¹«Ë¾
+ * @Copyright:  Copyright  (C)  2021-2024 ï¿½ï¿½Ý¸ï¿½Ð±ï¿½Ä©ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾
  * @file 	: task_usb2can.c
  * ******************************************************************************
  * @brief 	: This file contains the implementation of the USB to CAN communication task.
@@ -82,7 +82,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 /**
  * ******************************************************************************
  * @brief 	: Callback function for the usb device
- * @param 	  p_self  	: Pointer to the device structure.
+ * @param 	  p_self  	: a pointer to get the device object
  * @author 	: chenningzhan
  * @note 	: None
  * ******************************************************************************

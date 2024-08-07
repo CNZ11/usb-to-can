@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************
- * @Copyright:  Copyright  (C)  2021-2024 东莞市本末科技有限公司
+
  * @file 	: device_led.c
  * ******************************************************************************
  * @brief 	: This file implements the led device layer
@@ -45,23 +45,23 @@ static const led_device_resources_t g_led_device_resources[LED_ID_COUNT] =
 /**
  * ******************************************************************************
  * @brief 	: get a pointer to an device based on its index.
- * @param 	: arg_index [in/out], The index of the led device.
+ * @param 	  index  	: The index of the led device.
  * @retval 	: This device index corresponds to a device pointer.
  * @author 	: chenningzhan
  * @note	: If the index is out of range, it logs an error and returns NULL.
- * @note	: An open interface for other modules to call to get a device pointer
+ *            An open interface for other modules to call to get a device pointer
  * ******************************************************************************
  */
-led_device_t *led_device_get_pointer(led_device_index_t arg_index)
+led_device_t *led_device_get_pointer(led_device_index_t index)
 {
-    if (arg_index < 0 || arg_index >= LED_ID_COUNT)
+    if (index < 0 || index >= LED_ID_COUNT)
     {
         LOG_ERROR("get pointer index out of range");
         return (void *)NULL;
     }
     else
     {
-        return &g_led_devices[arg_index];
+        return &g_led_devices[index];
     }
 }
 

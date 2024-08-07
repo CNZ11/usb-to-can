@@ -46,7 +46,7 @@ const can_device_resources_t g_can_device_resources[CAN_ID_COUNT] = {
  * @retval 	: Pointer to the can_device_t structure.
  * @author 	: chenningzhan
  * @note	: If the index is out of range, it logs an error and returns NULL.
- * @note	: An open interface for other modules to call to get a device pointer
+ *            An open interface for other modules to call to get a device pointer
  * ******************************************************************************
  */
 can_device_t *can_device_get_pointer(can_device_index_t index)
@@ -66,7 +66,7 @@ can_device_t *can_device_get_pointer(can_device_index_t index)
 
 /**
  * ******************************************************************************
- * @brief 	: 【introduction】
+ * @brief 	: Update the status of the device.
  * @param 	  p_self  	: a pointer to get the device object
  * @param 	  status  	: The new status to be set.
  * @author 	: chenningzhan
@@ -185,6 +185,14 @@ static void can_device_ops_reinit(void *p_self)
     }
 }
 
+/**
+ * ******************************************************************************
+ * @brief 	: Send a CAN message to the CAN bus.
+ * @param 	  p_self  	: a pointer to get the device object
+ * @author 	: chenningzhan
+ * @note 	: None
+ * ******************************************************************************
+ */
 static void can_device_ops_buff_send(void *p_self)
 {
     can_device_t *p_dev = (can_device_t *)p_self;

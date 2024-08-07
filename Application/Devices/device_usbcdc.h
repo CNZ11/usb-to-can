@@ -1,12 +1,12 @@
 #ifndef __DEVICE_USBCDC_H__
 #define __DEVICE_USBCDC_H__
 
-/* --------------------------- library header file -------------------------- */
-#include "usbd_cdc_if.h"
-
 /* ---------------------------- user header file ---------------------------- */
 #include "./device.h"
 #include "usb2can_def.h"
+
+/* --------------------------- library header file -------------------------- */
+#include "usbd_cdc_if.h"
 
 /* ---------------------------- macro definition ---------------------------- */
 #define USBCDC_DEVICE_BUFF_SIZE_TX (USB2CAN_USBCDC2PC_LEN)

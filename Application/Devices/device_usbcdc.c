@@ -56,17 +56,17 @@ usbcdc_device_t *usbcdc_device_get_pointer(void)
  * ******************************************************************************
  * @brief 	: Updates the status of the device.
  * @param 	  p_self  	: a pointer to get the device object
- * @param 	: arg_status [in/out], The new status to be set.
+ * @param 	  status  	: The new status to be set.
  * @author 	: chenningzhan
- * @note	: None
+ * @note 	: None
  * ******************************************************************************
  */
-static void usbcdc_device_ops_update_status(void *p_self, usbcdc_device_status_t arg_status)
+static void usbcdc_device_ops_update_status(void *p_self, usbcdc_device_status_t status)
 {
     usbcdc_device_t *p_dev = (usbcdc_device_t *)p_self;
-    if (arg_status <= USBCDC_STATUS_UNKNOWN && arg_status >= USBCDC_STATUS_IDLE)
+    if (status <= USBCDC_STATUS_UNKNOWN && status >= USBCDC_STATUS_IDLE)
     {
-        p_dev->params.status = arg_status;
+        p_dev->params.status = status;
     }
     else
     {
