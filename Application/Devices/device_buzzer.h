@@ -3,21 +3,11 @@
 
 /* ---------------------------- user header file ---------------------------- */
 #include "./device.h"
+
+/* --------------------------- library header file -------------------------- */
 #include "tim.h"
 
-/* ---------------------------- macro definition ---------------------------- */
-
 /* --------------------------- struct definitions --------------------------- */
-
-/**
- * @brief Enumeration for the buzzer device status.
- */
-typedef enum
-{
-    BUZZER_STATUS_OFF = 0,
-    BUZZER_STATUS_ON = 1,
-    BUZZER_STATUS_UNKNOWN,
-} buzzer_status_t;
 
 /**
  * @brief Structure to hold the hardware resources of a buzzer device.
@@ -29,38 +19,37 @@ typedef struct
 } buzzer_device_resources_t;
 
 /**
- * @brief Structure to hold the parameters of a buzzer device.
+ * @brief Structure to hold the parameters and state of a buzzer device.
  */
 typedef struct
 {
-    buzzer_status_t status;
-    uint32_t ccr; // compare register value for PWM control
+    uint32_t ccr;
 } buzzer_device_params_t;
 
 /**
- * @brief Structure to hold the operations supported by a buzzer device.
+ * @brief Structure to hold the operations for a buzzer device.
  */
 typedef struct
 {
-    void (*enable)(void *p_self);
-    void (*control)(void *p_self, buzzer_status_t arg_status);
+    void (*init)(void *p_this);
+    void (*tick)(void *p_this, uint8_t count);
 } buzzer_device_ops_t;
 
 /**
- * @brief Structure to hold the buzzer device object.
+ * @brief Structure to hold the device object for a buzzer.
  */
 typedef struct
 {
     const buzzer_device_resources_t *res;
     buzzer_device_params_t params;
     buzzer_device_ops_t ops;
-    p_callback_func_dev call_func;
+    p_func_callback_dev call_func;
 } buzzer_device_t;
 
 /* -------------------------- function declaration -------------------------- */
 
 buzzer_device_t *buzzer_device_get_pointer(void);
 
-void buzzer_device_register(p_callback_func_dev p_func);
+void buzzer_device_register(p_func_callback_dev p_func);
 
 #endif

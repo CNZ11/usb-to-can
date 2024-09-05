@@ -1,47 +1,74 @@
-#ifndef __TASK_SCHEDULE_H__
-#define __TASK_SCHEDULE_H__
+#ifndef __TASK_SCHDULE_H__
+#define __TASK_SCHDULE_H__
 
 /* ---------------------------- user header file ---------------------------- */
-#include "log.h"
 #include "stm32g4xx_hal.h"
 
-/* --------------------------- struct definitions --------------------------- */
-typedef void (*p_callback_func_schedule)(void *p_self);
-
-typedef struct
-{
-    void (*update_tick)(volatile uint32_t *p_tick);
-} schedule_ops_t;
+/* ---------------------------- macro definition ---------------------------- */
 
 /**
- * @brief Enumeration to represent the initialization status of a task.
+ * @brief NULL definition safeguard.
  */
-typedef enum
-{
-    TASK_INIT_UNCOMPLETE = 0,
-    TASK_INIT_COMPLETE,
-} schedule_init_t;
+#ifndef NULL_PTR
+#define NULL_PTR ((void *)0)
+#endif
 
+/**
+ * @brief Get the system tick count
+ */
+#ifndef HAL_GET_TICK
+#define HAL_GET_TICK(p_tick)         \
+    do                               \
+    {                                \
+        (*(p_tick)) = HAL_GetTick(); \
+    } while (0)
+#endif
+
+/**
+ * @brief calculates the number of elements in an array.
+ */
+#ifndef ARRAY_NUM
+#define ARRAY_NUM(arr) (sizeof(arr) / sizeof(arr[0]))
+#endif
+
+/**
+ * @brief callback function pointer type definition.
+ */
+typedef void (*p_func_callback_schedule)(void *p_this);
+
+/**
+ * @brief callback function pointer type definition.
+ */
+typedef void (*p_func_normal)(void);
+
+/* --------------------------- struct definitions --------------------------- */
+
+/**
+ * @brief Structure for the scheduled task parameters.
+ */
 typedef struct
 {
     volatile uint32_t tick_last;    // The tick count at the time of the last task execution.
     volatile uint32_t tick_current; // The current tick count.
     uint32_t tick_interval;         // The desired interval between task executions.
     uint32_t count;                 // The number of times the task has been executed.
-    schedule_init_t init;           // The initialization status of the task.
 } schedule_params_t;
 
+/**
+ * @brief Structure for the scheduled task.
+ */
 typedef struct
 {
     schedule_params_t params;           // Parameters for the scheduled task.
-    schedule_ops_t ops;                 // Operations for the task, such as updating the tick.
-    p_callback_func_schedule call_func; // Pointer to the callback function to be executed.
+    p_func_callback_schedule call_func; // Pointer to the callback function to be executed.
 } schedule_t;
 
 /* -------------------------- function declaration -------------------------- */
 
-int schedule_register(p_callback_func_schedule p_func, uint32_t arg_interval);
-schedule_t *schedule_get_pointer(p_callback_func_schedule p_func);
+void schedule_register(void);
+
+schedule_t *schedule_get_pointer(p_func_callback_schedule p_func);
+
 void schedule_start(void);
 
 #endif

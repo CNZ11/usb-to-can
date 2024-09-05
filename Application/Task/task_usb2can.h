@@ -3,9 +3,10 @@
 
 /* ---------------------------- user header file ---------------------------- */
 #include "./task_schedule.h"
+#include "libs_calc.h"
 
 /* -------------------------- function declaration -------------------------- */
 
-void mytask_usb2can_entry(void *p_self);
+void mytask_usb2can_entry(void);
 
 #endif

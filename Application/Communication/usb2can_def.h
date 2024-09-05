@@ -1,37 +1,24 @@
 /**
  * ******************************************************************************
  * @Copyright:  Copyright  (C)  2021-2024 东莞市本末科技有限公司
- * @file 	: usb2can_def.h
+ * @file 	: def_usb2can.h
  * ******************************************************************************
- * @brief 	: The protocol structure of USB to can module is defined according to the host computer protocol
+ * @brief 	: uab转can协议层定义
  * @version	: 1.0
  * @date 	: 2024-07-24
- * @note 	: 【this file major modifications】
- * *
- * ******* Improvement *********
- * * 1. improvement the function :
- * *
- * *
- * ******* Fix the bug *********
- * * 1. fix the bug of :
- * *
- * *
- * ******* HOW TO USE *********
- * * 0. add the files in this folder to current project
- * * 1. #include 'filesname.h'
- * * 2. change the macro and enum in 'filesname.h':
- * * 3. change the resources in 'filesname.c':
- * * 4. Initialize,Use a pointer to get an action handle, and use an action function
+ * @note 	: 源自达秒uab转can协议
  * *
  * ******************************************************************************
  */
-#ifndef _USB2CAN_DEF_H_
-#define _USB2CAN_DEF_H_
+#ifndef __DEF_USB2CAN_H__
+#define __DEF_USB2CAN_H__
 
 /* ---------------------------- user header file ---------------------------- */
+
 #include "main.h"
 
 /* ---------------------------- macro definition ---------------------------- */
+
 #define USB2CAN_CAN_DATA_LEN 8   // Length of CAN data in bytes.
 #define USB2CAN_PC2USBCDC_LEN 30 // Length of data packet from PC to USB CDC.
 #define USB2CAN_USBCDC2PC_LEN 16 // Length of data packet from USB CDC to PC.
@@ -93,47 +80,6 @@ typedef struct
     uint8_t can_data[USB2CAN_CAN_DATA_LEN]; // CAN data array
     uint8_t fream_end_crc;                  // CRC8 for end of frame
 } pc2usbcdc_fream_transmit_t;
-
-/**
- * @brief Enumeration for PC to set can baud rate
- */
-typedef enum
-{
-    CAN_BAUDRATE_1M = 0,
-    CAN_BAUDRATE_500K = 3,
-    CAN_BAUDRATE_250K = 5,
-    CAN_BAUDRATE_200K = 6,
-    CAN_BAUDRATE_125K = 7,
-    CAN_BAUDRATE_100K = 8,
-    CAN_BAUDRATE_TYPE,
-} pc2usbcdc_fream_can_baudrate_index_t;
-
-/**
- * @brief Structure for PC to set can baud rate , 5bytes
- * @note
- * eg: 0x55 0x05 0x00 xAA 0x55
- */
-typedef struct
-{
-    uint8_t fream_header_1;
-    uint8_t fream_header_2;
-    pc2usbcdc_fream_can_baudrate_index_t baudrate_index;
-    uint8_t fream_end_1st;
-    uint8_t fream_end_2nd;
-} pc2usbcdc_fream_can_baudrate_t;
-
-/**
- * @brief Structure for PC to set stop can transmission, 4bytes
- * @note
- * eg: 0x55 0x03 0xAA 0x55
- */
-typedef struct
-{
-    uint8_t fream_header_1;
-    uint8_t fream_header_2;
-    uint8_t fream_end_1st;
-    uint8_t fream_end_2nd;
-} pc2usbcdc_fream_set_stop_t;
 
 /**
  * @brief Enumeration for CAN to PC command types

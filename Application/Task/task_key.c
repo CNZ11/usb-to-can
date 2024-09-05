@@ -63,8 +63,8 @@ static void key_device_ops_callback(void *p_self)
         break;
     }
 
-    // Trigger buzzer action
-    p_dev_buzzer->call_func((void *)p_dev_buzzer);
+    // trigger buzzer action
+    p_dev_buzzer->ops.tick((void *)p_dev_buzzer, 1);
 }
 
 /**
@@ -78,24 +78,13 @@ static void key_device_ops_callback(void *p_self)
 void mytask_key_entry(void *p_self)
 {
     schedule_t *task = (schedule_t *)p_self;
-    static key_device_t *p_dev_ctrl = (void *)NULL;
+    static key_device_t *p_dev_ctrl = NULL_PTR;
 
     /* the task initialization */
     if (0 == task->params.count)
     {
         key_device_register(key_device_ops_callback);
         p_dev_ctrl = key_device_get_pointer(KEY_ID_CTRL);
-
-        // check the pointer
-        if ((void *)NULL == p_dev_ctrl)
-        {
-            LOG_ERROR("get device pointer failed !");
-            return;
-        }
-        else
-        {
-            LOG_INFO("find device success");
-        }
     }
     /* the task starts a loop */
     else

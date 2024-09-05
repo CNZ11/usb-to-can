@@ -65,6 +65,12 @@ void Error_Handler(void);
 #define CAN_ODT_GPIO_Port GPIOC
 #define CAN_STBY_Pin GPIO_PIN_15
 #define CAN_STBY_GPIO_Port GPIOC
+#define FLASH_CLK_Pin GPIO_PIN_5
+#define FLASH_CLK_GPIO_Port GPIOA
+#define FLASH_DO_Pin GPIO_PIN_6
+#define FLASH_DO_GPIO_Port GPIOA
+#define FLASH_DI_Pin GPIO_PIN_7
+#define FLASH_DI_GPIO_Port GPIOA
 #define OLED_SCL_Pin GPIO_PIN_4
 #define OLED_SCL_GPIO_Port GPIOC
 #define KEY_CTRL_Pin GPIO_PIN_13
@@ -75,6 +81,8 @@ void Error_Handler(void);
 #define LED_GREEN_GPIO_Port GPIOC
 #define OLED_SDA_Pin GPIO_PIN_8
 #define OLED_SDA_GPIO_Port GPIOA
+#define FLASH_CS_Pin GPIO_PIN_15
+#define FLASH_CS_GPIO_Port GPIOA
 #define LED_RED_Pin GPIO_PIN_7
 #define LED_RED_GPIO_Port GPIOB
 

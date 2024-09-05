@@ -72,16 +72,15 @@ typedef struct
     const key_device_resources_t *res;
     key_device_params_t params;
     key_device_ops_t ops;
-    p_callback_func_dev call_func;
+    p_func_callback_dev call_func;
 } key_device_t;
 
 /* -------------------------- function declaration -------------------------- */
-
 
 key_device_index_t key_device_return_index(void);
 
 key_device_t *key_device_get_pointer(key_device_index_t arg_index);
 
-void key_device_register(p_callback_func_dev p_func);
+void key_device_register(p_func_callback_dev p_func);
 
 #endif /* __APP_KEY_H__ */

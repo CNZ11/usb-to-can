@@ -1,10 +1,10 @@
 /**
  * ******************************************************************************
- * @Copyright:  Copyright  (C)  2021-2024 东莞市本末科技有限公司
+ * @Copyright:  Copyright  (C)  2021-2024 涓滆帪甯傛湰鏈鎶�鏈夐檺鍏徃
  * @file 	: task_schedule.c
  * ******************************************************************************
  * @brief 	: use systick for easy task scheduling
- * @version	: 3.0
+ * @version	: 4.0
  * @date 	: 2024-07-27
  * @note 	: improved access to system time base for ease of migration and maintenance
  * *
@@ -31,29 +31,38 @@
  * *
  * ******************************************************************************
  */
-/* ---------------------------- user header file ---------------------------- */
-#include "task_schedule.h"
 
-/* ---------------------------- macro definition ---------------------------- */
-#define TASK_MAX_COUNT 5
+/* ---------------------------- user header file ---------------------------- */
+
+#include "task_schedule.h"
+#include "task_key.h"
+#include "task_led.h"
+#include "task_usb2can.h"
 
 /* ----------------------- global variable definition ----------------------- */
-schedule_t g_task_list[TASK_MAX_COUNT] = {0};
-
-/* ------------------ private operation function definition ----------------- */
 
 /**
- * ******************************************************************************
- * @brief 	: Retrieve the current system tick count and store it in the provided pointer.
- * @param 	  p_tick  	: a pointer to where the current tick count will be stored.
- * @author 	: chenningzhan
- * @note	: This function is used to update the tick count in the task's schedule operation.
- * ******************************************************************************
+ * @brief this is normal task,only init device.
  */
-static void schedule_ops_gettick(volatile uint32_t *p_tick)
-{
-    *p_tick = HAL_GetTick();
-}
+p_func_normal g_init_list[] = {
+    mytask_usb2can_entry,
+};
+
+/**
+ * @brief this is multiple running task
+ */
+schedule_t g_task_list[] = {
+    {
+        .call_func = mytask_led_entry,
+        .params.tick_interval = 200,
+    },
+#if 0
+    {
+        .call_func = mytask_key_entry,
+        .params.tick_interval = 30,
+    },
+#endif
+};
 
 /* ----------------------- public function definition ----------------------- */
 
@@ -66,47 +75,35 @@ static void schedule_ops_gettick(volatile uint32_t *p_tick)
  * @note 	: None
  * ******************************************************************************
  */
-schedule_t *schedule_get_pointer(p_callback_func_schedule p_func)
+schedule_t *schedule_get_pointer(p_func_callback_schedule p_func)
 {
-    for (int i = 0; i < TASK_MAX_COUNT; ++i)
+    if (NULL_PTR == p_func || 0 == p_func)
+        return NULL_PTR;
+
+    for (int i = 0; i < ARRAY_NUM(g_task_list); i++)
     {
         if (p_func == g_task_list[i].call_func)
         {
             return &g_task_list[i];
         }
     }
-    return (void *)NULL;
+    return NULL_PTR;
 }
 
-/**
- * ******************************************************************************
- * @brief 	: Register a new task to the scheduler with a given callback function and interval.
- * @param 	  p_func  	: The callback function pointer of the task to register.
- * @param 	  interval  	: The desired execution interval for the task in milliseconds.
- * @retval 	: The index of the registered task, or -1 if registration failed.
- * @author 	: chenningzhan
- * @note 	: None
- * ******************************************************************************
- */
-int schedule_register(p_callback_func_schedule p_func, uint32_t interval)
+void schedule_register(void)
 {
-    for (int i = 0; i < TASK_MAX_COUNT; i++)
+    // The task callback function is executed once first,to init the some parameters
+    for (int i = 0; i < ARRAY_NUM(g_task_list); i++)
     {
-        // The initialization is performed only if the task has not been initialized
-        if (TASK_INIT_UNCOMPLETE == g_task_list[i].params.init)
-        {
-            // bind the callback function
-            g_task_list[i].ops.update_tick = schedule_ops_gettick;
-            // bind the callback function
-            g_task_list[i].call_func = p_func;
-            // set interval time
-            g_task_list[i].params.tick_interval = interval;
-            // set the initial status
-            g_task_list[i].params.init = TASK_INIT_COMPLETE;
-            return i;
-        }
+        g_task_list[i].call_func((void *)&g_task_list[i]);
+        g_task_list[i].params.count += 1;
     }
-    return -1;
+
+    // init the some parameters
+    for (int i = 0; i < ARRAY_NUM(g_init_list); i++)
+    {
+        g_init_list[i]();
+    }
 }
 
 /**
@@ -114,27 +111,23 @@ int schedule_register(p_callback_func_schedule p_func, uint32_t interval)
  * @brief 	: Start the execution of all registered tasks according to their intervals.
  * @author 	: chenningzhan
  * @note	: This function checks each task's initialization status and runs them based on
- * their tick intervals. It updates the current tick and the last tick, and calls the task's
- * callback function if the interval condition is met.
+ *            their tick intervals. It updates the current tick and the last tick, and calls the task's
+ *            callback function if the interval condition is met.
  * ******************************************************************************
  */
 void schedule_start(void)
 {
-    for (int i = 0; i < TASK_MAX_COUNT; i++)
+    for (int i = 0; i < ARRAY_NUM(g_task_list); i++)
     {
-        if (TASK_INIT_COMPLETE == g_task_list[i].params.init)
-        {
-            // update the current tick
-            g_task_list[i].ops.update_tick(&g_task_list[i].params.tick_current);
+        // update the current tick
+        HAL_GET_TICK(&g_task_list[i].params.tick_current);
 
-            // task running condition check
-            if ((g_task_list[i].params.tick_current - g_task_list[i].params.tick_last) >= g_task_list[i].params.tick_interval ||
-                0 == g_task_list[i].params.count)
-            {
-                g_task_list[i].ops.update_tick(&g_task_list[i].params.tick_last);
-                g_task_list[i].call_func((void *)&g_task_list[i]);
-                g_task_list[i].params.count += 1;
-            }
+        // task running condition check
+        if ((g_task_list[i].params.tick_current - g_task_list[i].params.tick_last) >= g_task_list[i].params.tick_interval)
+        {
+            g_task_list[i].call_func((void *)&g_task_list[i]);
+            HAL_GET_TICK(&g_task_list[i].params.tick_last);
+            g_task_list[i].params.count += 1;
         }
     }
 }

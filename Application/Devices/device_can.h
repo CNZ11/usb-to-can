@@ -3,31 +3,17 @@
 
 /* ---------------------------- user header file ---------------------------- */
 #include "./device.h"
-#include "usb2can_def.h"
 
 /* --------------------------- library header file -------------------------- */
+
 #include "fdcan.h"
 
 /* ---------------------------- macro definition ---------------------------- */
-#define CAN_DEVICE_BUFF_SIZE_TX (USB2CAN_CAN_DATA_LEN)
-#define CAN_DEVICE_BUFF_SIZE_RX (USB2CAN_CAN_DATA_LEN)
+
+#define CAN_DEVICE_BUFF_SIZE_TX (8)
+#define CAN_DEVICE_BUFF_SIZE_RX (8)
 
 /* --------------------------- struct definitions --------------------------- */
-
-/**
- * @brief Enumeration for the can device status.
- */
-typedef enum
-{
-    CAN_STATUS_IDLE = 0x00,
-    CAN_STATUS_RECEIVE_SUCCESS,
-    CAN_STATUS_RECEIVE_FAILED,
-    CAN_STATUS_SENDOUT_SUCCESS,
-    CAN_STATUS_SENDOUT_FAILED,
-    CAN_STATUS_SETUP_SUCCESS,
-    CAN_STATUS_SETUP_FAILED,
-    CAN_STATUS_UNKNOWN,
-} can_device_status_t;
 
 /**
  * @brief Enumeration for the can device index.
@@ -36,15 +22,39 @@ typedef enum
 {
     CAN_ID_FD1 = 0,
     CAN_ID_COUNT,
-} can_device_index_t;
+} can_device_index_e;
+
+/**
+ * @brief Enumeration for the can device status.
+ */
+typedef enum
+{
+    CAN_STATUS_IDLE = 0,
+    CAN_STATUS_BUSY,
+} can_device_status_e;
+
+/**
+ * @brief Enumeration for PC to set can baud rate
+ */
+typedef enum
+{
+    CAN_BAUDRATE_UNKNOW = -1,
+    CAN_BAUDRATE_1M = 0,
+    CAN_BAUDRATE_500K = 3,
+    CAN_BAUDRATE_250K = 5,
+    CAN_BAUDRATE_200K = 6,
+    CAN_BAUDRATE_125K = 7,
+    CAN_BAUDRATE_100K = 8,
+    CAN_BAUDRATE_TYPE,
+} can_device_baudrate_index_e;
 
 /**
  * @brief Structure for the can device parameters.
  */
 typedef struct
 {
-    can_device_status_t status;
-    pc2usbcdc_fream_can_baudrate_index_t baudrate; // Baudrate index
+    can_device_baudrate_index_e baudrate; // Baudrate index
+    can_device_status_e status;           //
 } can_device_params_t;
 
 /**
@@ -60,11 +70,11 @@ typedef struct
  */
 typedef struct
 {
-    void (*enable)(void *private_data); // Function to initialize and enable CAN
-    void (*reinit)(void *private_data); // Function to reinitialize baudrate
-    void (*update_status)(void *private_data, can_device_status_t arg_status);
-    can_device_status_t (*return_status)(void *private_data);
-    void (*buff_send)(void *private_data);
+    void (*enable)(void *p_object);
+    void (*reinit)(void *p_object);
+    void (*buff_send)(void *p_object);
+    void (*update_status)(void *p_object, can_device_status_e status);
+    can_device_status_e (*return_status)(void *p_object);
 } can_device_ops_t;
 
 /**
@@ -74,17 +84,17 @@ typedef struct
 {
     uint8_t buff_tx[CAN_DEVICE_BUFF_SIZE_TX]; // Transmit buffer
     uint8_t buff_rx[CAN_DEVICE_BUFF_SIZE_RX]; // Receive buffer
-    can_device_params_t params;               // Device parameters
-    FDCAN_HandleTypeDef *hfdcan;              // Pointer to FDCAN handle
+    const can_device_resources_t *res;        // Pointer to FDCAN handle
     FDCAN_TxHeaderTypeDef htx;                // CAN Tx header structure
     FDCAN_RxHeaderTypeDef hrx;                // CAN Rx header structure
+    can_device_params_t params;               //
     can_device_ops_t ops;                     // CAN device operations
-    p_callback_func_dev call_func;            // Pointer to device callback function
+    p_func_callback_dev call_func;            // Pointer to device callback function
 } can_device_t;
 
 /* -------------------------- function declaration -------------------------- */
-can_device_t *can_device_get_pointer(can_device_index_t arg_index);
+can_device_t *can_device_get_pointer(can_device_index_e arg_index);
 
-void can_device_register(p_callback_func_dev p_func);
+void can_device_register(p_func_callback_dev p_func);
 
 #endif

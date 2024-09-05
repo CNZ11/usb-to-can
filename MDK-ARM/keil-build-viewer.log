@@ -2,12 +2,12 @@
 =================================================== keil-build-viewer v1.5b ==================================================
  
 [Search keil project] 1 item(s)
-	c:\Users\G\Documents\usb2can_ddt\MDK-ARM\myDDTLink.uvprojx
+	C:\Users\G\Desktop\usb2can_ddt\MDK-ARM\myDDTLink.uvprojx
 
 [User input] 
-[Current folder] c:\Users\G\Documents\usb2can_ddt\MDK-ARM
+[Current folder] C:\Users\G\Desktop\usb2can_ddt\MDK-ARM
 [Encoding] 936
-[Keil project path] c:\Users\G\Documents\usb2can_ddt\MDK-ARM\myDDTLink.uvprojx
+[Keil project path] C:\Users\G\Desktop\usb2can_ddt\MDK-ARM\myDDTLink.uvprojx
 [Keil project name] myDDTLink.uvprojx
 [Is keil v4] 0
 [target name] myDDTLink
@@ -30,20 +30,21 @@
 [name] IROM [base addr] 0x08000000 [size] 0x0001C000 [type] 2 [off-chip] 0 [is pack] 1 [ID] 3 
 
 
-[map file path] c:\Users\G\Documents\usb2can_ddt\MDK-ARM\myDDTLink\myDDTLink.map
+[map file path] C:\Users\G\Desktop\usb2can_ddt\MDK-ARM\myDDTLink\myDDTLink.map
 
 [region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x08000000, 0x0001C000, 0x0000C628 [memory type] 2 [memory ID] 3
+	[execution region] ER_IROM1, 0x08000000, 0x0001C000, 0x0000C4AC [memory type] 2 [memory ID] 3
 
-	[execution region] RW_IRAM1, 0x20000000, 0x00008000, 0x00001F78 [memory type] 1 [memory ID] 2
-		[ZI block] addr: 0x20000188, size: 0x00001DF0 (7664)
+	[execution region] RW_IRAM1, 0x20000000, 0x00008000, 0x00001F80 [memory type] 1 [memory ID] 2
+		[ZI block] addr: 0x200001D0, size: 0x00001DB0 (7600)
 
 
 [object name max length] 29
 [object path max length] 67
 
 [object in map file]
+[object name] device.o                       [path] ..\Application\Devices\device.c
 [object name] device_buzzer.o                [path] ..\Application\Devices\device_buzzer.c
 [object name] device_can.o                   [path] ..\Application\Devices\device_can.c
 [object name] device_key.o                   [path] ..\Application\Devices\device_key.c
@@ -52,10 +53,11 @@
 [object name] device_usbcdc.o                [path] ..\Application\Devices\device_usbcdc.c
 [object name] fdcan.o                        [path] ../Core/Src/fdcan.c
 [object name] gpio.o                         [path] ../Core/Src/gpio.c
+[object name] libs_calc.o                    [path] ..\Application\Libs\libs_calc.c
 [object name] main.o                         [path] ../Core/Src/main.c
-[object name] ops_byte_bit.o                 [path] ..\Application\Libs\ops_byte_bit.c
-[object name] segger_rtt.o                   [path] ..\SEGGER_RTT\SEGGER_RTT.c
-[object name] segger_rtt_printf.o            [path] ..\SEGGER_RTT\SEGGER_RTT_printf.c
+[object name] segger_rtt.o                   [path] ..\Application\SEGGER_RTT\SEGGER_RTT.c
+[object name] segger_rtt_printf.o            [path] ..\Application\SEGGER_RTT\SEGGER_RTT_printf.c
+[object name] spi.o                          [path] ../Core/Src/spi.c
 [object name] startup_stm32g431xx.o          [path] startup_stm32g431xx.s
 [object name] stm32g4xx_hal.o                [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.c
 [object name] stm32g4xx_hal_cortex.o         [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.c
@@ -67,12 +69,12 @@
 [object name] stm32g4xx_hal_pwr_ex.o         [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.c
 [object name] stm32g4xx_hal_rcc.o            [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.c
 [object name] stm32g4xx_hal_rcc_ex.o         [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.c
+[object name] stm32g4xx_hal_spi.o            [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.c
 [object name] stm32g4xx_hal_tim.o            [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.c
 [object name] stm32g4xx_hal_tim_ex.o         [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.c
 [object name] stm32g4xx_it.o                 [path] ../Core/Src/stm32g4xx_it.c
 [object name] stm32g4xx_ll_usb.o             [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_usb.c
 [object name] system_stm32g4xx.o             [path] ../Core/Src/system_stm32g4xx.c
-[object name] task_buzzer.o                  [path] ..\Application\Task\task_buzzer.c
 [object name] task_key.o                     [path] ..\Application\Task\task_key.c
 [object name] task_led.o                     [path] ..\Application\Task\task_led.c
 [object name] task_schedule.o                [path] ..\Application\Task\task_schedule.c
@@ -86,11 +88,12 @@
 [object name] usbd_ctlreq.o                  [path] ../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
 [object name] usbd_desc.o                    [path] ../USB_Device/App/usbd_desc.c
 [object name] usbd_ioreq.o                   [path] ../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
+[object name] w25qxx.o                       [path] ..\Application\BSP\W25Qxx.c
 
 [file path in keil project]
+[old name] W25Qxx.c                       [type] 1   [path] ..\Application\BSP\W25Qxx.c
 [old name] task_usb2can.c                 [type] 1   [path] ..\Application\Task\task_usb2can.c
 [old name] task_key.c                     [type] 1   [path] ..\Application\Task\task_key.c
-[old name] task_buzzer.c                  [type] 1   [path] ..\Application\Task\task_buzzer.c
 [old name] task_led.c                     [type] 1   [path] ..\Application\Task\task_led.c
 [old name] task_schedule.c                [type] 1   [path] ..\Application\Task\task_schedule.c
 [old name] device_usb2can.c               [type] 1   [path] ..\Application\Devices\device_usb2can.c
@@ -99,10 +102,15 @@
 [old name] device_key.c                   [type] 1   [path] ..\Application\Devices\device_key.c
 [old name] device_buzzer.c                [type] 1   [path] ..\Application\Devices\device_buzzer.c
 [old name] device_led.c                   [type] 1   [path] ..\Application\Devices\device_led.c
-[old name] ops_byte_bit.c                 [type] 1   [path] ..\Application\Libs\ops_byte_bit.c
+[old name] device.c                       [type] 1   [path] ..\Application\Devices\device.c
+[old name] libs_calc.c                    [type] 1   [path] ..\Application\Libs\libs_calc.c
+[old name] libs_crc.c                     [type] 1   [path] ..\Application\Libs\libs_crc.c
+[old name] libs_ring_buff.c               [type] 1   [path] ..\Application\Libs\libs_ring_buff.c
+[old name] libs_sync.c                    [type] 1   [path] ..\Application\Libs\libs_sync.c
 [old name] main.c                         [type] 1   [path] ../Core/Src/main.c
 [old name] gpio.c                         [type] 1   [path] ../Core/Src/gpio.c
 [old name] fdcan.c                        [type] 1   [path] ../Core/Src/fdcan.c
+[old name] spi.c                          [type] 1   [path] ../Core/Src/spi.c
 [old name] tim.c                          [type] 1   [path] ../Core/Src/tim.c
 [old name] stm32g4xx_it.c                 [type] 1   [path] ../Core/Src/stm32g4xx_it.c
 [old name] stm32g4xx_hal_msp.c            [type] 1   [path] ../Core/Src/stm32g4xx_hal_msp.c
@@ -114,8 +122,8 @@
 [old name] usbd_ctlreq.c                  [type] 1   [path] ../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
 [old name] usbd_ioreq.c                   [type] 1   [path] ../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
 [old name] usbd_cdc.c                     [type] 1   [path] ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
-[old name] SEGGER_RTT.c                   [type] 1   [path] ..\SEGGER_RTT\SEGGER_RTT.c
-[old name] SEGGER_RTT_printf.c            [type] 1   [path] ..\SEGGER_RTT\SEGGER_RTT_printf.c
+[old name] SEGGER_RTT.c                   [type] 1   [path] ..\Application\SEGGER_RTT\SEGGER_RTT.c
+[old name] SEGGER_RTT_printf.c            [type] 1   [path] ..\Application\SEGGER_RTT\SEGGER_RTT_printf.c
 [old name] startup_stm32g431xx.s          [type] 1   [path] startup_stm32g431xx.s
 [old name] system_stm32g4xx.c             [type] 1   [path] ../Core/Src/system_stm32g4xx.c
 [old name] stm32g4xx_hal_pcd.c            [type] 1   [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pcd.c
@@ -135,28 +143,32 @@
 [old name] stm32g4xx_hal_pwr_ex.c         [type] 1   [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.c
 [old name] stm32g4xx_hal_cortex.c         [type] 1   [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.c
 [old name] stm32g4xx_hal_fdcan.c          [type] 1   [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_fdcan.c
+[old name] stm32g4xx_hal_spi.c            [type] 1   [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.c
+[old name] stm32g4xx_hal_spi_ex.c         [type] 1   [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi_ex.c
 [old name] stm32g4xx_hal_tim.c            [type] 1   [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.c
 [old name] stm32g4xx_hal_tim_ex.c         [type] 1   [path] ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.c
 
 [record region info]
 [load region] LR_IROM1
-	[execution region] ER_IROM1, 0x08000000, 0x0001C000, 0x0000C628 [type] 2 [ID] 3
-	[execution region] RW_IRAM1, 0x20000000, 0x00008000, 0x00001F78 [type] 1 [ID] 2
+	[execution region] ER_IROM1, 0x08000000, 0x0001C000, 0x0000C4AC [type] 2 [ID] 3
+	[execution region] RW_IRAM1, 0x20000000, 0x00008000, 0x00001F80 [type] 1 [ID] 2
 -------------------------------------------------------------------------------------------------------------------------------
                                  FILE(s)                                |         RAM (byte)       |       FLASH (byte)       |
 -------------------------------------------------------------------------------------------------------------------------------
-..\Application\Devices\device_buzzer.c():                               |          24              |         528              |
-..\Application\Devices\device_can.c():                                  |         124              |        1546              |
-..\Application\Devices\device_key.c():                                  |          36              |         577              |
-..\Application\Devices\device_led.c():                                  |          32              |         491              |
-..\Application\Devices\device_usb2can.c():                              |          16              |         454              |
-..\Application\Devices\device_usbcdc.c():                               |          72              |         555              |
+..\Application\Devices\device.c():                                      |           8              |          68              |
+..\Application\Devices\device_buzzer.c():                               |          20              |         376              |
+..\Application\Devices\device_can.c():                                  |         124              |         652              |
+..\Application\Devices\device_key.c():                                  |          36              |         198              |
+..\Application\Devices\device_led.c():                                  |          24              |         178              |
+..\Application\Devices\device_usb2can.c():                              |          16              |         148              |
+..\Application\Devices\device_usbcdc.c():                               |          72              |         348              |
 ../Core/Src/fdcan.c():                                                  |         100              |         278              |
-../Core/Src/gpio.c():                                                   |           0              |         378              |
-../Core/Src/main.c():                                                   |           0              |         234              |
-..\Application\Libs\ops_byte_bit.c():                                   |           0              |         122              |
-..\SEGGER_RTT\SEGGER_RTT.c():                                           |        1208              |         872              |
-..\SEGGER_RTT\SEGGER_RTT_printf.c():                                    |           0              |        1892              |
+../Core/Src/gpio.c():                                                   |           0              |         420              |
+..\Application\Libs\libs_calc.c():                                      |           0              |         122              |
+../Core/Src/main.c():                                                   |           0              |         190              |
+..\Application\SEGGER_RTT\SEGGER_RTT.c():                               |        1208              |         872              |
+..\Application\SEGGER_RTT\SEGGER_RTT_printf.c():                        |           0              |        1892              |
+../Core/Src/spi.c():                                                    |         100              |         270              |
 startup_stm32g431xx.s():                                                |        3072              |         536              |
 ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.c():                  |          12              |         296              |
 ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.c():           |           0              |         478              |
@@ -168,16 +180,16 @@ startup_stm32g431xx.s():                                                |       
 ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.c():           |           0              |         454              |
 ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.c():              |           0              |        3188              |
 ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.c():           |           0              |        1114              |
+../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.c():              |           0              |        2218              |
 ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.c():              |           0              |        3530              |
 ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.c():           |           0              |         622              |
 ../Core/Src/stm32g4xx_it.c():                                           |           0              |          66              |
 ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_usb.c():               |           0              |        7048              |
 ../Core/Src/system_stm32g4xx.c():                                       |           4              |          38              |
-..\Application\Task\task_buzzer.c():                                    |           4              |         490              |
-..\Application\Task\task_key.c():                                       |           4              |         672              |
-..\Application\Task\task_led.c():                                       |           4              |         412              |
-..\Application\Task\task_schedule.c():                                  |         140              |         376              |
-..\Application\Task\task_usb2can.c():                                   |          12              |        1765              |
+..\Application\Task\task_key.c():                                       |           4              |         366              |
+..\Application\Task\task_led.c():                                       |           8              |          74              |
+..\Application\Task\task_schedule.c():                                  |          44              |         340              |
+..\Application\Task\task_usb2can.c():                                   |           0              |        1160              |
 ../Core/Src/tim.c():                                                    |          76              |         392              |
 ../USB_Device/App/usb_device.c():                                       |         720              |         118              |
 ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c():  |         267              |        1889              |
@@ -185,8 +197,9 @@ startup_stm32g431xx.s():                                                |       
 ../USB_Device/Target/usbd_conf.c():                                     |        1276              |        1386              |
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c():      |           0              |        1366              |
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c():    |           1              |        3136              |
-../USB_Device/App/usbd_desc.c():                                        |         592              |         708              |
+../USB_Device/App/usbd_desc.c():                                        |         592              |         702              |
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c():     |           0              |         232              |
+..\Application\BSP\W25Qxx.c():                                          |          20              |        1724              |
 -------------------------------------------------------------------------------------------------------------------------------
 [memory print mode]: 0
 LR_IROM1
@@ -195,11 +208,11 @@ LR_IROM1
                 RW_IRAM1  [0x20000000]|¡ö¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ¡õ______________________________________| (   7.8 KB /  32.0 KB )  24.6%  
  
         FLASH 1           [0x08000000 | 0x0001C000 (114688)]
-                ER_IROM1  [0x08000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö____________________________| (  49.5 KB / 112.0 KB )  44.2%  
+                ER_IROM1  [0x08000000]|¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö¡ö_____________________________| (  49.1 KB / 112.0 KB )  43.9%  
  
-[htm file path] c:\Users\G\Documents\usb2can_ddt\MDK-ARM\myDDTLink\myDDTLink.htm
-Maximum Stack Usage =        740 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)
+[htm file path] C:\Users\G\Desktop\usb2can_ddt\MDK-ARM\myDDTLink\myDDTLink.htm
+Maximum Stack Usage =       4376 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)
  
 =============================================================================================================================
 
-run time: 0.155 s
+run time: 0.146 s

@@ -6,6 +6,6 @@
 
 /* -------------------------- function declaration -------------------------- */
 
-void mytask_led_entry(void *p_self);
+void mytask_led_entry(void *p_this);
 
 #endif

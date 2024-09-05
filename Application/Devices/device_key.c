@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************
-
+ * @Copyright:  Copyright  (C)  2021-2024 东莞市本末科技有限公司
  * @file 	: device_key.c
  * ******************************************************************************
  * @brief 	: This file implements the keys device layer
@@ -32,15 +32,15 @@
  */
 
 /* ---------------------------- user header file ---------------------------- */
+
 #include "device_key.h"
 
 /* ----------------------- global variable definition ----------------------- */
 
-key_device_t g_key_devices[KEY_ID_COUNT] = {0};
-const key_device_resources_t g_key_device_resources[KEY_ID_COUNT] =
-    {
-        {KEY_ID_CTRL, KEY_CTRL_GPIO_Port, KEY_CTRL_Pin},
+const key_device_resources_t g_key_device_resources[KEY_ID_COUNT] = {
+    {KEY_ID_CTRL, KEY_CTRL_GPIO_Port, KEY_CTRL_Pin},
 };
+key_device_t g_key_devices[KEY_ID_COUNT] = {0};
 
 /* ----------------------- public function definition ----------------------- */
 
@@ -58,8 +58,7 @@ key_device_t *key_device_get_pointer(key_device_index_t index)
 {
     if (index < 0 || index >= KEY_ID_COUNT)
     {
-        LOG_ERROR("get pointer index out of range");
-        return NULL;
+        return NULL_PTR;
     }
     else
     {
@@ -84,11 +83,7 @@ key_device_index_t key_device_return_index(void)
     {
         return p_dev_key_ctrl->res->index;
     }
-    // if no key is pressed,return -1
-    else
-    {
-        return -1;
-    }
+    return -1;
 }
 
 /* ------------------ private operation function definition ----------------- */
@@ -167,15 +162,15 @@ static void key_device_ops_update_status(void *p_self)
  * @note 	: None
  * ******************************************************************************
  */
-void key_device_register(p_callback_func_dev p_func)
+void key_device_register(p_func_callback_dev p_func)
 {
     for (uint8_t i = 0; i < KEY_ID_COUNT; i++)
     {
         // gets a pointer to the global variable device
-        key_device_t *p_dev = &g_key_devices[i];
+        key_device_t *p_dev = &(g_key_devices[i]);
 
         // bind the hardware resource
-        p_dev->res = &g_key_device_resources[i];
+        p_dev->res = &(g_key_device_resources[i]);
 
         // set the default parameter
         p_dev->params.status = KEY_STATUS_IDLE;
