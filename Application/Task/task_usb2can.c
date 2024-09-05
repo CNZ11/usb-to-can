@@ -1,6 +1,6 @@
 /**
  * ******************************************************************************
- * @Copyright:  Copyright  (C)  2021-2024 东莞市本末科技有限公司
+ * @Copyright:  Copyright  (C)
  * @file 	: task_usb2can.c
  * ******************************************************************************
  * @brief 	: This file contains the implementation of the USB to CAN communication task.
@@ -273,7 +273,6 @@ void usb2can_device_callback(void *p_object)
     }
 }
 
-
 /**
  * ******************************************************************************
  * @brief 	: Entry point for the USB2CAN task.
@@ -286,11 +285,11 @@ void mytask_usb2can_entry(void)
     static uint32_t count;
     static can_device_t *p_dev_can = NULL_PTR;
     static usbcdc_device_t *p_dev_usbcdc = NULL_PTR;
-    static usb2can_device_t *p_dev_usb2can = NULL_PTR;    
-    
+    static usb2can_device_t *p_dev_usb2can = NULL_PTR;
+
     if (0 == count++)
     {
-       /* Register the device callback */
+        /* Register the device callback */
         can_device_register(can_device_callback);
         usbcdc_device_register(usbcdc_device_callback);
         usb2can_device_register(usb2can_device_callback);
@@ -305,8 +304,8 @@ void mytask_usb2can_entry(void)
             NULL_PTR == p_dev_usb2can)
         {
             LOG_ERROR("get device pointer failed !");
-        }        
-    }  
+        }
+    }
     else
     {
         if (USB2CAN_STATUS_BUSY == p_dev_usb2can->params.status)
@@ -334,6 +333,6 @@ void mytask_usb2can_entry(void)
             }
             // 同步通知
             p_dev_usb2can->params.status = USB2CAN_STATUS_IDLE;
-        }        
+        }
     }
 }
